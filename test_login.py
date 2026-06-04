@@ -1,5 +1,5 @@
 import pytest
-
+from pages.login_page import LoginPage
 
 @pytest.mark.parametrize(
     "username,password,expected",
@@ -17,9 +17,8 @@ def test_login(page, username, password, expected):
 
     page.goto("https://www.saucedemo.com/")
 
-    page.locator("#user-name").fill(username)
-    page.locator("#password").fill(password)
-    page.locator("#login-button").click()
+    login_page = LoginPage(page)
+    login_page.login(username, password)
 
     if expected:
         assert "inventory" in page.url
